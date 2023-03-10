@@ -26,6 +26,13 @@ public class CollibraDemoService {
     @Autowired
     private ReactiveStringRedisTemplate redisTemplate;
 
+//    @Autowired
+//    private KafkaTemplate<String, String> kafkaTemplate;
+
+//    public void sendMessage(String msg) {
+//        kafkaTemplate.send("collibra-demo", msg);
+//    }
+
     @Autowired
     ReactiveRedisTemplate<String, MyObject> reactiveRedisMyObjectTemplate;
     private ReactiveListOperations<String, String> reactiveListOps;
@@ -39,6 +46,8 @@ public class CollibraDemoService {
 
     public Mono<Boolean> setMyObject(MyObject myObject){
         log.info(myObject.getId() + " MyObject has been updated");
+//        sendMessage(myObject.getId() + " MyObject has been updated");
+
         reactiveMyObjectValueOps = reactiveRedisMyObjectTemplate.opsForValue();
 
         return reactiveMyObjectValueOps.set(String.valueOf(myObject.getId()),
