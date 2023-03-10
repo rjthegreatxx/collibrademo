@@ -55,6 +55,7 @@ public class CollibraDemoService {
     }
 
     public Mono<Long> deleteMyObject(int id){
+        //        sendMessage(myObject.getId() + " MyObject has been deleted");
         return reactiveRedisMyObjectTemplate.delete(String.valueOf(id));
     }
 
