@@ -38,6 +38,7 @@ public class CollibraDemoService {
     }
 
     public Mono<Boolean> setMyObject(MyObject myObject){
+        log.info(myObject.getId() + " MyObject has been updated");
         reactiveMyObjectValueOps = reactiveRedisMyObjectTemplate.opsForValue();
 
         return reactiveMyObjectValueOps.set(String.valueOf(myObject.getId()),
