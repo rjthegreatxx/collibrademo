@@ -14,18 +14,18 @@ import java.util.Properties;
 @Service
 public class MyKafkaProducer {
 
-    public void sendMsgToTopic(MyObject myObject) throws IOException {
+    public void sendMsgToTopic(MyObject myObject) {
         Properties props = loadConfig("kafka.properties");
         String topic = "topic_0";
 
         try (final KafkaProducer<String, String> producer = new KafkaProducer<>(props)) {
                 producer.send(
-                        new ProducerRecord<>(topic, String.valueOf(myObject.getId()), String.valueOf(myObject.getId()) + " was updated"),
+                        new ProducerRecord<>(topic, String.valueOf(myObject.getId()), myObject.getId() + " was updated"),
                         (event, ex) -> {
                             if (ex != null)
                                 ex.printStackTrace();
                             else
-                                log.info("Produced event to topic = " + topic + ", key = " + String.valueOf(myObject.getId()) + ", value = " +  String.valueOf(myObject.getId()) + " was updated");
+                                log.info("Produced event to topic = " + topic + ", key = " + myObject.getId() + ", value = " + myObject.getId() + " was updated");
                         });
             }
 

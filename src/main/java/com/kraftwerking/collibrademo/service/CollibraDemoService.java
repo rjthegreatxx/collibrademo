@@ -43,11 +43,7 @@ public class CollibraDemoService {
 
     public Mono<Boolean> setMyObject(MyObject myObject){
         log.info(myObject.getId() + " MyObject has been updated");
-        try {
-            myKafkaProducer.sendMsgToTopic(myObject);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        myKafkaProducer.sendMsgToTopic(myObject);
 
         reactiveMyObjectValueOps = reactiveRedisMyObjectTemplate.opsForValue();
 
