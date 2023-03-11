@@ -36,7 +36,7 @@ public class CollibraDemoControllerTests {
 	private String collibraDemoDeleteUri;
 
 	@Test
-	public void testSetAndGetMyObject() {
+	public void testSettMyObject() {
 		MyObject myObject = collibraDemoService.getMyObjectsFromFile().get(0);
 		WebTestClient webTestClient = WebTestClient.bindToServer().baseUrl(collibraDemoBaseUrl).build();
 
