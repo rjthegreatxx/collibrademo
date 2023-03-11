@@ -43,7 +43,7 @@ public class CollibraDemoService {
 
     public Mono<Boolean> setMyObject(MyObject myObject){
         log.info(myObject.getId() + " MyObject has been updated");
-        myKafkaProducer.sendMsgToTopic(myObject);
+        myKafkaProducer.sendMsgToTopic(myObject, "updated");
 
         reactiveMyObjectValueOps = reactiveRedisMyObjectTemplate.opsForValue();
 
@@ -52,7 +52,10 @@ public class CollibraDemoService {
     }
 
     public Mono<Long> deleteMyObject(int id){
-        //        sendMessage(myObject.getId() + " MyObject has been deleted");
+        log.info(id + " MyObject has been deleted");
+        MyObject myObject = new MyObject();
+        myObject.setId(id);
+        myKafkaProducer.sendMsgToTopic(myObject, "deleted");
         return reactiveRedisMyObjectTemplate.delete(String.valueOf(id));
     }
 
