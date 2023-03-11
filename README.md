@@ -1,10 +1,30 @@
 # Demo
 
 ### Testing
+
 Database and webTestClient tests can be run.  I've also attached a Postman collection to test the controller.
 
+### Setup
+Local Redis running on port 6379
+
+Main application should be running when running integration tests
+
+Gradle:
+
+```gradle build -x test```
+
+```gradle bootRun```
+
+Docker:
+
+```docker build -t collibrademo:latest .```
+
+```docker run -dp 8080:8080 collibrademo```
+
+(Docker networking may have to be adjusted when running against a containerized version of Redis)
+
+
 ### TODO
-More unit tests of controllers
 
 OpenAPI
 
