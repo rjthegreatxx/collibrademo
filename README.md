@@ -6,8 +6,6 @@ Database and webTestClient tests can be run.  I've also attached a Postman colle
 ### TODO
 More unit tests of controllers
 
-Docker
-
 OpenAPI
 
 Kafka debugging
