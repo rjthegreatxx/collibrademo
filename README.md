@@ -8,8 +8,6 @@ More unit tests of controllers
 
 OpenAPI
 
-Kafka debugging
-
 ### Assessment
 
 Consider a metadata system that persists “asset” information. A sample format of some assets:

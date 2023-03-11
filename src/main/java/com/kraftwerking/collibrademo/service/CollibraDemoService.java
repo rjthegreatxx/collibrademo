@@ -3,6 +3,7 @@ package com.kraftwerking.collibrademo.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kraftwerking.collibrademo.model.MyObject;
+import com.kraftwerking.collibrademo.service.kafka.MyKafkaProducer;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ReactiveListOperations;
@@ -26,12 +27,8 @@ public class CollibraDemoService {
     @Autowired
     private ReactiveStringRedisTemplate redisTemplate;
 
-//    @Autowired
-//    private KafkaTemplate<String, String> kafkaTemplate;
-
-//    public void sendMessage(String msg) {
-//        kafkaTemplate.send("collibra-demo", msg);
-//    }
+    @Autowired
+    MyKafkaProducer myKafkaProducer;
 
     @Autowired
     ReactiveRedisTemplate<String, MyObject> reactiveRedisMyObjectTemplate;
@@ -46,7 +43,11 @@ public class CollibraDemoService {
 
     public Mono<Boolean> setMyObject(MyObject myObject){
         log.info(myObject.getId() + " MyObject has been updated");
-//        sendMessage(myObject.getId() + " MyObject has been updated");
+        try {
+            myKafkaProducer.sendMsgToTopic(myObject);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         reactiveMyObjectValueOps = reactiveRedisMyObjectTemplate.opsForValue();
 
