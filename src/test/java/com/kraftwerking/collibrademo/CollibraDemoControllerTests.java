@@ -77,8 +77,6 @@ public class CollibraDemoControllerTests {
 	@Test
 	public void testGetMyObject() {
 		MyObject myObject = collibraDemoService.getMyObjectsFromFile().get(0);
-		myObject.getData().get(0).getMedications().get(0).getAceInhibitors().get(0).setName("lisinopril-B");
-
 		WebTestClient webTestClient = WebTestClient.bindToServer().baseUrl(collibraDemoBaseUrl).build();
 
 		webTestClient.get()
@@ -94,12 +92,10 @@ public class CollibraDemoControllerTests {
 	@Test
 	public void testDeleteMyObject() {
 		MyObject myObject = collibraDemoService.getMyObjectsFromFile().get(0);
-		myObject.getData().get(0).getMedications().get(0).getAceInhibitors().get(0).setName("lisinopril-B");
-
 		WebTestClient webTestClient = WebTestClient.bindToServer().baseUrl(collibraDemoBaseUrl).build();
 
 		webTestClient.get()
-				.uri(collibraDemoGetUri)
+				.uri(collibraDemoDeleteUri)
 				.exchange()
 				.expectStatus().isOk()
 				.expectBody()
